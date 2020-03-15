@@ -24,6 +24,181 @@
 
 ## REST API Design Pattern
 
+**URIs**
+
+> - URI = scheme "://" authority "/" path [ "?" query ] [ "#" fragment ] 
+> - Forward slash separator (/) must be used to indicate a hierarchical
+relationship
+> - A trailing forward slash (/) should not be included in URIs
+> - Hyphens (-) should be used to improve the readability of URIs
+> - Underscores (_) should not be used in URIs
+> - Lowercase letters should be preferred in URI paths
+> - File extensions should not be included in URIs
+
+**URI Authority Design**
+
+> - **Consistent subdomain names** should be used for your APIs : The top-level domain and first subdomain names (e.g., soccer.restapi.org) of an API
+should identify its **service owner**
+> - The full domain name of an API should add a sub-
+domain named api.Eg: http://api.soccer.restapi.org
+> - Consistent subdomain names should be used for your client **developer
+portal**. Many REST APIs have an associated website, known as a developer portal, to help on-board new clients with documentation, forums, and self-service provisioning of secure
+API access keys. If an API provides a developer portal, by convention it should have a
+subdomain labeled developer. Eg : **http://developer.soccer.restapi.org**
+
+
+**Archtypes**
+
+> - A REST API is composed of four distinct resource archetypes: **document**, **collection**, **store**, and **controller**
+> - In order to communicate a **clear and clean** **resource model** to its clients,
+a REST API should **align** each resource with **only one** of these arche-
+types
+
+1. **Document**
+
+> - A **document**’s state representation typically includes both **fields with values** and
+**links to other related resources**.
+> - Document type is the **conceptual base archetype** of the other resource archetypes.
+> - The three other resource archetypes can be viewed as specializations of
+the document archetype.
+
+> A document may have child resources that represent its specific subordinate concepts.
+With its ability to bring many different resource types together under a single parent,
+a document is a logical candidate for a REST API’s root resource, which is also known
+as the docroot. Eg: http://api.blog.ezapi.site
+
+```javascript
+http://api.blog.ezapi.site/categories/rest-api/posts/headfirst-restapi
+http://api.blog.ezapi.site/categories/rest-api/posts/headfirst-restapi/comments/1
+```
+
+2. **Collection**
+
+> A collection resource is a **server-managed directory of resources**
+
+> Clients may propose new resources to be added to a collection. However, it is up to the collection to choose to create a new resource, or not. A collection resource chooses what it wants to contain and also decides the URIs of each contained resource.
+
+```javascript
+http://api.blog.ezapi.site/categories
+http://api.blog.ezapi.site/categories/rest-api/posts
+http://api.blog.ezapi.site/categories/rest-api/posts/headfirst-restapi/comments
+```
+
+3. **Store**
+
+> A store is a **client-managed resource repository**
+
+> A store resource lets an API client put resources in, get them back out, and decide when to delete them
+
+> On their own, stores do not create new resources; therefore a store never generates new URIs. Instead, each stored resource has a URI that was chosen by a client when it was initially put into the store
+
+```javascript
+PUT /users/123/favorites/headfirst-restapi
+```
+
+4. **Controller**
+
+> A controller resource models a **procedural concept**. Controller resources are like exe-cutable functions, with parameters and return values; inputs and outputs
+
+> REST API relies on controllerresources to perform application-specific actions that cannot be logically mapped to one of the standard methods ( create, retrieve, update and delete, aka CRUD)
+
+> Controller names typically appear as the last segment in a URI path, with no child
+resources to follow them in the hierarchy. The example below shows a controller re-
+source that allows a client to resend an alert to a user:
+
+```javascript
+POST /alerts/245743/resend
+```
+
+**Identifier Design with URIs**
+
+
+> WRML diagram of a URI’s associated resource model
+
+```javavascript
+{collection-c}/{store-s}/{document-d}
+
+It means "c" contains "s" which stores "d"
+```
+
+**Rules**
+
+- A **singular noun** should be used for **document names**
+
+> /categories/rest-api
+
+- A **plural noun** should be used for **collection names**
+
+> /categories
+
+- A **plural noun** should be used for **store names**
+
+> /artists/bigbang/playlists
+
+- A **verb or verb phrase** should be used for **controller names**
+
+> /users/register
+> /categories/123/copy
+
+> - **Variable path segments** may be substituted with **identity-based values**
+
+> /categories/{categoryId}/posts/{postId}/comments/{commentId}
+
+> A REST API’s clients must consider URIs to be the only meaningful
+resource identifiers. Although other backend system identifiers (such as
+database IDs) may appear in a URI’s path, they are meaningless to client
+code. By establishing URIs as the only IDs, a REST API’s backend im-
+plementation may evolve over time without impacting its existing
+clients.
+
+> - **CRUD function names** should **not be used in URIs**
+
+> For example, this API interaction design is preferred:
+
+```javascript
+DELETE /users/1234
+```
+
+> The following anti-patterns exemplify **what not to do:**
+
+```javascript
+GET /deleteUser?id=1234
+GET /deleteUser/1234
+DELETE /deleteUser/1234
+POST /users/1234/delete
+```
+
+> URI Query Design
+
+```javascript
+http://api.ezapi.site/users/misostack/send-sms
+http://api.ezapi.site/users/misostack/send-sms?text=hello
+```
+
+> - **The query component** of a URI may be used to **filter collections or stores**
+
+```javascript
+GET /customers
+GET /customers?email=leesanghyok
+```
+
+> - **The query component** of a URI should be used to **paginate collection or store results**
+
+```javascript
+GET /customers?pageSize=25&pageStartIndex=50
+```
+
+> - When the complexity of a client’s pagination (or filtering) requirements exceeds the
+simple formatting capabilities of the query part, consider designing a special controller
+resource that partners with a collection or store
+
+```javascript
+GET /customers/search
+```
+
+
+## Design steps
+
 1. Identity Object Model
 
 - Customer
@@ -51,8 +226,7 @@
 **POST**
 
 - In web services, POST requests are used to **send data to the API server** to 
-**create** or **update** resource. The data sent to the server is stored in the
-**request body** of the HTTP Request.
+**create** a new resource **with-in collection** or **execute controllers**. The data sent to the server is stored in the **request body** of the HTTP Request.
 - The data can be JSON, XML, or query parameters and etc ...
 - It's worth noting that a **POST** request is **non-idempotent**
 
@@ -75,14 +249,74 @@ Location: /articles/63636
 
 **PUT**
 
-- Similar to POST, **PUT** requests are used to send data to the API to create or update a resource. The difference is that **PUT requests are idempotent** 
+- Similar to POST, **PUT** requests are used to send data to the API to **add a new resource to store** or **update a resource**. The difference is that **PUT requests are idempotent**
 
-- HEAD
-- DELETE
-- PATCH
-- OPTIONS
+- When a client needs to replace an existing Resource entirely, they can use PUT.
+
+> How to test **PUT** request? 
+
+> - Repeatedly cally a PUT request always returns the same result 
+> - After updating a resource with a PUT request, a GET request for that resource should return the new data
+> - PUT requests should fail if invalid data is supplied in the request -- nothing should be updated
+
+**PATCH**
+
+- When clients want to do a partial update, they can use HTTP PATCH.
+
+> How to test **PATCH** request?
+
+> - A successful PATCH request should return a 2xx status code.
+> - PATCH requests should fail if invalid data is supplied in the request -- nothing should be updated.
+
+**DELETE**
+
+- The DELETE method is exactly as it sounds: delete the resource at the specified URL. This method is one of the more common in RESTful APIs so it's good to know how it works.
+
+> If a new user is created with a POST request to /users, and it can be retrieved with a GET request to /users/{{userid}}, then making a DELETE request to /users/{{userid}} will completely remove that user.
+
+> How to test **DELETE** request?
+
+> - Create a new user with a POST request to /users
+> - With the user id returned from the POST, make a DELETE request to /users/{{userId}}
+> - A subsequent GET request to /users/{{userId}} should return a 404 not found status code.
+> - Sending a DELETE request to an unknown resource should return a non-200 status code.
+
+**HEAD**
+
+- The HEAD method is almost identical to GET, except without the response body. In other words, if GET /users returns a list of users, then HEAD /users will make the same request but won't get back the list of users.
+
+> It's worth pointing out that not every endpoint that supports GET will support HEAD - it completely depends on the API you're testing.
+
+
+> Testing an API with HEAD requests
+
+- Making API requests with HEAD methods is actually an effective way of simply verifying that a resource is available. It is good practice to have a test for HEAD requests everywhere you have a test for GET requests (as long as the API supports it)
+
+> - Verify and check HTTP headers returned from a HEAD request
+> - Make assertions against the status code of HEAD requests
+> - Test requests with various query parametesr to ensure the API responds
+
+> Another useful case for HEAD requests is API smoke testing - make a HEAD request against every API endpoint to ensure they're available.
+> Eg : https://rollout.io/blog/add-post-deploy-smoke-tests-to-any-codeship-pipeline/
+
+**OPTIONS**
+
+- Return data describing what other methods and operations the server supports at the given URL
+
+```bash
+curl -i -X OPTIONS http://api.blog.ezapi.site/categories
+```
+
+> How to test OPTIONS request?
+
+> - Primarily, check the response headers and status code of the request
+> - Test endpoints that don't support OPTIONS, and ensure they fail appropriately
 
 ## Refs
+
+### Books should be read
+
+- REST API Design Rulebook
 
 ### Typescript
 
@@ -102,7 +336,27 @@ Location: /articles/63636
 - https://blog.runscope.com/posts/6-common-api-errors
 - https://assertible.com/blog/4-common-api-errors-how-to-test-them
 - https://www.moesif.com/blog/api-guide/api-design-guidelines/
+- https://www.restapitutorial.com/lessons/httpmethods.html
+- https://www.baeldung.com/http-put-patch-difference-spring
+- https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/HEAD
+- https://www.restapitutorial.com/lessons/httpmethods.html
+
+### Interesting topics
+
+- - https://docs.microsoft.com/en-us/onedrive/developer/rest-api/concepts/http-verb-tunneling?view=odsp-graph-online
+- https://softwareengineering.stackexchange.com/questions/171412/rest-api-rule-about-tunneling
+
+> For example, if the DELETE verb is blocked by a firewall, your application can tunnel the verb to the API to ensure that your app can still delete a file.
+
+> But then a lot of frameworks use tunneling to expose REST interfaces via HTML forms, since <form> knows only about GET and POST. My most recent example is a MethodRewriteMiddleware for flask (submitted by the author of the framework): http://flask.pocoo.org/snippets/38/.
+
+```http
+POST /drive/items/{item-id} HTTP/1.1
+Host: api.onedrive.com
+X-HTTP-Method-Override: DELETE
+```
 
 ## Words
 
 > Idempotence : When performing an operation again gives the same results
+> WRML : Web Resource Modeling Language

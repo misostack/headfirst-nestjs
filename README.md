@@ -2,6 +2,142 @@
 
 ## Sample Project
 
+> Project Name: Lol Ranking System
+
+> **Audience Users**:
+>
+> - Register, Login, Reset Password, Change Password, Update Email, Update profile
+> - Add to favorites: league, club, player
+> - Votes for : leagues, clubs, players
+> - Comments on : match details page, club pages
+> - Add friends
+
+> **Club Users**:
+> 
+> - Register, Login, Reset Password, Change Password, Update Email, Update profile
+> - Manage players: CRUD
+> - Manage matches: CRUD
+> - Manage matches: CRUD, games, match results
+> - Manage games: CRUD
+> - Manage locations
+
+> **System Users**:
+> 
+> - Manage **Users** and **System Users**
+> - Manage **Groups** and **Permissions**
+> - Manage leagues: CRUD
+> - Manage clubs: CRUD
+> - Manage champions: CRUD
+> - Auth: Login, Reset Password, Change Password, Update Email or Profile
+> - System Settings
+
+### Design
+
+1.Entities
+
+- User
+- League
+- Club
+- Player
+- Match
+- Game
+- Location
+
+2.Model URIs
+
+**Version 1**
+- Prefix : v1
+
+**Users**
+
+- Document: /users/{id} /users/member /users/system
+- Collection : /users
+-
+
+```javascript
+GET /users
+GET /users/{id}
+POST /users
+PUT /users/{id}
+POST /users/register
+POST /users/login
+GET|POST /users/logout
+```
+
+**Sum up**
+
+1. Login
+
+> Use POST
+> return what you need
+
+```json
+POST /api/v1/users/login
+Content-Type: application/json
+Accept : application/json
+{"userid" : "admin1", "password" : "pswd"}
+// Success
+{
+    "token_type": "bearer",
+    "access_token": "{a JWT token}",
+    "expired_in": 3600, // seconds
+    "refresh_token": "a random hashed which stored in db",
+}
+
+// Error
+Status Code : 401 Unauthorised
+{
+    "code":401,
+    "error":"invalid_token",
+    "error_description":"The access token provided has expired."
+}
+```
+
+2. Logout
+
+**From IBM**
+
+- https://www.ibm.com/support/knowledgecenter/SSWPVP_4.0.0/com.ibm.sklm.doc/reference/ref/ref_ic_rest_service.html
+- Login : https://www.ibm.com/support/knowledgecenter/SSWPVP_4.0.0/com.ibm.sklm.doc/reference/ref/ref_ic_rest_login_service.html
+- Logout : https://www.ibm.com/support/knowledgecenter/SSWPVP_4.0.0/com.ibm.sklm.doc/reference/ref/ref_ic_rest_logout_service.html
+
+**Log out with JWT?**
+
+- https://medium.com/devgorilla/how-to-log-out-when-using-jwt-a8c7823e8a6
+
+> If we need a strict logout
+> The idea is creating a blacklist tokens that has TTL option on documents which would be set to the amount of time left until the token is expired. **Redis** is a good option for this, that will allow fast in memory access to the list. Then in middleware authorized, we can check if the provided token is in **The Blacklist**
+
+**Why need the blacklist tokens?**
+
+- When we need to invalidate all the current user's JWT tokens. Eg: when a user change his/her authentication's identity or password. Or a system need to support strict logout.
+
+3. Refresh Token
+
+- https://medium.com/quick-code/jwt-access-and-refresh-token-with-vapor-3-85a0aee5291b
+- https://auth0.com/blog/refresh-tokens-what-are-they-and-when-to-use-them/
+
+**Some refs**:
+
+- https://dzone.com/articles/four-most-used-rest-api-authentication-methods
+- https://stackoverflow.com/questions/36294359/is-logout-useless-on-a-rest-api
+- https://backendless.com/docs/rest/users_logout.html
+- https://rocket.chat/docs/developer-guides/rest-api/authentication/logout/
+- https://documentation.commvault.com/commvault/v11/article?p=45754.htm
+- https://docs.bmc.com/docs/ars1902/authentication-and-permissions-in-the-rest-api-847208964.html
+- https://dzone.com/articles/four-most-used-rest-api-authentication-methods
+- https://www.ibm.com/support/knowledgecenter/SSWPVP_4.0.0/com.ibm.sklm.doc/reference/ref/ref_ic_rest_logout_service.html
+- https://www.apiopscycles.com/rest-api-design-guide
+
+## Public vs Private APIs
+
+- https://stackoverflow.com/questions/3231570/excluding-private-data-in-restful-response
+- https://spectrum.chat/graphql/general/splitting-a-graphql-api-between-public-private~d84a2d9c-e052-422f-aedc-21c0ecc642eb
+- https://dev.to/paurakhsharma/flask-rest-api-part-3-authentication-and-authorization-5935
+- https://dev.to/paurakhsharma/flask-rest-api-part-5-password-reset-2f2e
+
+## Final Project
+
 > CS2 : https://github.com/misostack/roadmap 
 > 
 > Project name : CRM Software
@@ -360,3 +496,20 @@ X-HTTP-Method-Override: DELETE
 
 > Idempotence : When performing an operation again gives the same results
 > WRML : Web Resource Modeling Language
+
+
+## NestJS
+
+- DB : https://docs.nestjs.com/techniques/database
+- Migration : https://blog.theodo.com/2019/05/an-overview-of-nestjs-typeorm-release-your-first-application-in-less-than-30-minutes/
+- https://sequelize.org/v5/manual/migrations.html
+- https://typeorm.io/#/migrations
+- https://medium.com/@gausmann.simon/nestjs-typeorm-and-postgresql-full-example-development-and-project-setup-working-with-database-c1a2b1b11b8f
+- https://github.com/Theodo-UK/nestjs-admin
+- https://kscerbiakas.lt/nest-js-migrations-in-typeorm/
+- https://codersera.com/blog/how-to-integrate-dotenv-with-nestjs-and-typeorm/
+- https://stackoverflow.com/questions/53207719/migrations-been-added-to-root-folder-not-migration-folder
+- https://stackoverflow.com/questions/47861633/versioning-nestjs-routes
+- https://trilon.io/blog/nestjs-swagger-4-whats-new
+- https://dev.to/itnext/adding-live-documentation-to-your-rest-api-with-swagger-and-nest-js-211e
+- https://stackoverflow.com/questions/59368042/how-to-enable-nestjs-swagger-4-x-plugin

@@ -64,6 +64,194 @@ POST /users/login
 GET|POST /users/logout
 ```
 
+## Ok, so where to start
+
+- https://github.com/misostack/cs1-headfirst-angular/tree/test/ddd-sample
+- https://www.avatto.com/study-material/software-engineering-cohesion
+- https://docs.nestjs.com/techniques/authentication
+- https://developers.google.com/admin-sdk/directory/v1/guides/manage-roles
+- https://auth0.com/docs/api/management/guides/apis/enable-rbac
+
+```json
+{
+    "base": [
+        {
+            "services": [
+                "LogService",
+                "MailService",
+                "PDFService",
+                "QueueService",
+                "ScheduleService"
+            ]
+        }
+    ],
+    // ranking feature module
+    "modules": [
+        {
+            "base": [
+                {
+                    "models": [
+                        "PDFTemplate" // Entity
+                        "PDFReport" // Entity
+                    ],
+                    "services": [
+                        "MailService",
+                        "LogService",
+                        "PDFService",
+                    ],
+                }
+            ]
+        },
+        {
+            "web": [
+                // controllers base dir
+                {
+                    "controllers": [
+                        // /web : display logo with welcome message
+                        {"home": ["index"]}
+                        // /web/pdf/:templateId ==> view html template with mock data                        
+                        // /web/pdf/:templateId/:reportId ==> view html template with report data
+                        {"pdf": ["index", "report"]}
+
+                    ]
+                },
+                // views base dir : hbs or ejs ( prefered esj )
+                {
+                    "views": [
+                        "index.hbs",
+                        "pdf.hbs",
+                        "pdf-report.hbs",
+                    ]
+                },
+                // dev assets base dir
+                {
+                    "assets": [
+                        "webpack",
+                        "scss",
+                        "js",
+                        "images",
+                    ]
+                }
+                // public assets base dir
+                { 
+                    "public": [
+                        // .gitignore this folder
+                        // each build, need to compile assets
+                        {
+                            "dist": ["style.css", "main.js", "images"]
+                        },
+                    ] 
+                },
+            ]
+        },
+        {
+            "rbac": [
+                {
+                    "models": {
+                        "RoleBaseDTO": [
+                            "UserTypes : Constant"
+                            "RoleBaseResourceAccess(resource) : Decorator"
+                            "RoleBaseResourceAccessPolicy : Service"
+                        ],
+                        "RoleBaseResourceAccess": [
+                            {
+                                "me": [
+                                    {
+                                        "default": {
+                                            "privileges": ['ME_RETRIEVE', 'ME_UPDATE', 'ME_DELETE'],
+                                            "fields": ['firstName','lastName', 'email'],
+                                        }                                
+                                    }
+                                ],
+                                "users": [
+                                    {
+                                        "default": {
+                                            "privileges": ['USERS_RETRIEVE'],
+                                            "fields": ['id', 'firstName','lastName','email']
+                                        },
+                                        "admin": {
+                                            "privileges": ['USERS_RETRIEVE', 'USERS_CREATE','USERS_UPDATE','USERS_DELETE'],
+                                            "fields": [...USERS_AVAILABLE_FIELDS]
+                                        },                                       
+                                    }
+                                ],
+                                "settings": [
+                                    {
+                                        "admin": {
+                                            "privileges": ['SETTINGS_ALL']
+                                        }
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                }
+            ]
+        },
+        {
+            "user": [
+                {
+                    "middlewares": [
+                        "AuthMiddleWare" // load user and permissions
+                    ],
+                    "controllers": [
+                        "auth",
+                        "users"
+                    ],
+                    "models": [                                                
+                        "User", // entity
+                        "UserDTO", // class: AudienceUser, ClubUser, SystemUser
+                        "UserService", // allow CRUD, search
+                        "AuthService", // allow login/logout/forget-password/reset-password
+                        // Facades: 
+                        // - Interact with application layers. Eg: controller
+                        // - Interact with system layers. Eg: MailService
+                        "UserFacade",
+                        "AuthFacade",
+                    ],
+                }
+            ]
+        }
+        {
+            "example": [
+                { 
+                    "controllers": [
+                        // collection
+                        "categories",
+                        "items",
+                        // store
+                        // favorites/{userId}/categories
+                        // favorites/{userId}/items
+                        "favorites"
+                    ],
+                    "models": [
+                        "Category", "Item", // entity
+                        "CategoryDTO", "ItemDTO", // class
+                        "CategoryService", "ItemService", // allow CRUD, Search
+                        // facades
+                        "CategoryFacade",
+                        "ItemFacade",
+                    ] 
+                }
+            ]
+        }
+    ]
+}
+```
+
+**Design Patterns**:
+
+- https://www.javatpoint.com/factory-method-design-pattern
+
+**Definition**:
+
+- https://github.com/misostack/ezsystemdesign
+
+**Template Engine**:
+
+- https://handlebarsjs.com/guide/#installation
+- https://ejs.co/#install
+
 **Sum up**
 
 1. Login

@@ -189,6 +189,15 @@ GET|POST /users/logout
             ]
         },
         {
+            "base": [
+                {
+                    "controllers": [
+                        "base"
+                    ]
+                }
+            ]
+        }
+        {
             "user": [
                 {
                     "middlewares": [

@@ -9,6 +9,18 @@
     "sourceMap": true,
     "outDir": "./dist",
     "baseUrl": "./",
+    "moduleResolution": "node",       
+    "paths": {
+        "~/*": [
+            "src/*"
+        ],
+        "@base/*": ["src/base/*"],
+        "@user/*": ["src/user/*"],
+        "@example/*": ["src/example/*"],
+        "*": [
+            "./node_modules/*"
+        ]
+    },    
     "incremental": true
   },
   "exclude": ["node_modules", "dist"]

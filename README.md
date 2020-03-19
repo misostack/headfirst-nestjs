@@ -728,6 +728,95 @@ X-HTTP-Method-Override: DELETE
 - https://coconut.co/how-to-create-webhooks
 - http://www.ultrahook.com/
 
+# Ref
+
+0. Rapid
+
+- https://github.com/lujakob/nestjs-realworld-example-app/tree/master/src/article
+
+1. DTO && Validations
+
+**Example**
+
+- User Entity fields:
+- Ref : https://stackoverflow.com/questions/20958/list-of-standard-lengths-for-database-fields
+- https://www.codemag.com/Article/2001081/Nest.js-Step-by-Step-Part-3-Users-and-Authentication
+- https://stackoverflow.com/questions/59544204/nestjs-hashing-password
+- https://tea.ch/article/authentication-with-passport-jwt/
+- https://github.com/lujakob/nestjs-realworld-example-app/blob/master/src/article/article.entity.ts
+- https://jameshalsall.co.uk/posts/why-soft-deletes-are-evil-and-what-to-do-instead
+- https://docs.nestjs.com/recipes/cqrs
+
+> Let the database do it jobs, so forget about soft-deletes, use Audit Log instead
+> 
+> - https://github.com/varunon9/audit-logging-framework
+
+```php
+<?php
+ 
+class GroupManager
+{
+    // ...
+ 
+    public function delete(Group $group)
+    {
+        $this->orm->remove($group);
+        $this->eventDispatcher->dispatch('entity_deleted', new EntityDeleteEvent($group));
+        $this->orm->flush();
+    }
+ 
+    // ...
+}
+
+
+class AuditLogListener
+{
+    // ...
+
+    public function onEntityDelete(EntityDeletedEvent $event)
+    {
+        $entity = $event->getEntity();
+        $content = $this->serializer->serialize($entity);
+
+        $currentUser = $this->security->getCurrentUser();
+
+        $auditEntry = new AuditEntry();
+        $auditEntry->setContent($content)
+                   ->setUser($currentUser)
+                   ->setEntityClass(get_class($entity))
+                   ->setCreated(new \DateTime());
+
+        $this->auditManager->createEntry($auditEntry);
+    }
+    
+    // ...
+}
+
+```
+
+```json
+[
+    {"id": [int, auto_increment, PK]},
+    {"email": [string, required, isEmail, unique, length(320)]},
+    {"username": [string, not_required, unique, length(60)]}
+    {"firstName": [string, required, length(50),]}
+    {"lastName": [string, required, length(50),]}
+    {"password": [string, required, length(50)]} // required but do not store in DB, let it empty
+    {"passwordHash": [string]},
+    {"isActive": [true|false]}, // means this user exists but not activated, admin can als active/deactivate user
+    //
+    {"createdAt": [timestamp, auto]}, // means this user exists but not activated, admin can als 
+    {"updatedAt": [timestamp, auto]}    
+]
+```
+
+- Hash Lib : https://www.npmjs.com/package/bcrypt
+- Strategy:
+```
+- Find user find identity( email, active: )
+- If not exists return error
+- If exists, check hashed(inputPassword) === user.passwordHash
+```
 
 # Roadmap
 

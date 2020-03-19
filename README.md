@@ -2,7 +2,7 @@
 
 ## Sample Project
 
-> Project Name: Lol Ranking System
+> Project Name: Lol Ranking System API
 
 > **Audience Users**:
 >
@@ -710,3 +710,20 @@ X-HTTP-Method-Override: DELETE
 - https://trilon.io/blog/nestjs-swagger-4-whats-new
 - https://dev.to/itnext/adding-live-documentation-to-your-rest-api-with-swagger-and-nest-js-211e
 - https://stackoverflow.com/questions/59368042/how-to-enable-nestjs-swagger-4-x-plugin
+
+## Nest Router
+
+- https://github.com/nestjsx/nest-router
+
+## API Docs
+
+- https://docs.nestjs.com/recipes/swagger
+
+##  Hooks
+
+- https://requestbin.com/?gclid=Cj0KCQjwjcfzBRCHARIsAO-1_OqTv7UUZe8L9HJgdBAmi21-_vagcTq7xPCR9ahM19KF74z63tbIhOAaAoaCEALw_wcB
+- https://codeburst.io/whats-a-webhook-1827b07a3ffa
+- https://webhook.site/#!/eccb700d-b8a0-4043-b4f1-7649d7755276
+- https://zapier.com/blog/what-are-webhooks/
+- https://coconut.co/how-to-create-webhooks
+- http://www.ultrahook.com/

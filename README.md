@@ -727,3 +727,57 @@ X-HTTP-Method-Override: DELETE
 - https://zapier.com/blog/what-are-webhooks/
 - https://coconut.co/how-to-create-webhooks
 - http://www.ultrahook.com/
+
+
+# Roadmap
+
+## S0
+
+- Setup common things: application structure, routes sample
+
+## S1
+
+> /api/users
+
+- [ ] Define Routes - 1h
+- [ ] Define Models-DTO - 1h
+- [ ] Define Sample Data for all endpoints - 1h
+- [ ] Define Models-Entity - 1h
+- [ ] Define Models-Service - 1h
+- [ ] Define Models-Facade - 1h
+- [ ] Define DB Migration - 1h
+- [ ] Define DB Seed - 1h
+- [ ] Integrate all - 1h
+- [ ] Update API Doc - 1h
+- [ ] Test by CURL - 1h
+- [ ] Test with Postman - 1h
+
+==> Average : 12 hours/resources without RABC, unit tests, integration tests
+
+## S2
+
+> /api/auth
+
+- [ ] Define Routes
+- [ ] Define Models-DTO
+- [ ] Define Sample Data for all endpoints
+- [ ] Define Models-Entity
+- [ ] Define Models-Service
+- [ ] Define Models-Facade
+- [ ] Define DB Migration ( in case needed )
+- [ ] Update API Doc
+- [ ] Test by CURL
+- [ ] Test with Postman
+
+## S3
+
+> RABC
+
+## Deployment
+
+- https://medium.com/@liangjunjiang/deploy-nestjs-app-into-production-ecbb313278ee
+- https://stackoverflow.com/questions/53939919/what-is-the-right-way-of-production-deployment-of-nestjs-application
+- https://www.joshmorony.com/deploying-a-production-nestjs-server-on-heroku/
+- https://www.joshmorony.com/category/nest-js-tutorials
+- https://dev.to/carlillo/part-7-deploy-backend-nestjs-dockerdocker-compose-3cmb
+- https://dev.to/antogarand/deploying-a-nestjs-application-on-aws-beanstalk-4no1

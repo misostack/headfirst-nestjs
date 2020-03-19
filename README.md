@@ -826,6 +826,74 @@ class AuditLogListener
 - Status Code : https://www.restapitutorial.com/httpstatuscodes.html
 - https://docs.nestjs.com/pipes#class-validator
 
+- Create DB : https://devnotes.tamthapnhilap.site/article/postgresql-20191023-headfirst/
+
+```bash
+psql postgresql://postgres:123456@127.0.0.1:5432/postgres
+CREATE ROLE apidev WITH
+	LOGIN
+	NOSUPERUSER
+	CREATEDB
+	NOCREATEROLE
+	INHERIT
+	NOREPLICATION
+	CONNECTION LIMIT -1
+	PASSWORD '123456';
+GRANT postgres TO apidev WITH ADMIN OPTION;
+COMMENT ON ROLE apidev IS 'apidev';
+
+CREATE DATABASE lolrank
+    WITH 
+    OWNER = apidev
+    ENCODING = 'UTF8'
+    CONNECTION LIMIT = -1;
+
+# Test login
+psql postgresql://apidev:123456@127.0.0.1:5432/lolrank
+```
+- Validation: https://stackoverflow.com/questions/57797381/validation-does-not-work-with-partialdto-nestjs
+
+- Configuration : https://stackoverflow.com/questions/51721930/nestjs-configuration-with-dotenv
+
+- Database : https://docs.nestjs.com/techniques/database#database
+
+- TypeORM Entity : https://typeorm.io/#/entities
+
+- Available fields : https://typeorm.io/#/entities/column-types-for-postgres
+
+
+```js
+#!/usr/bin/env node
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
+const myPlaintextPassword = '123456@12312132';
+const someOtherPlaintextPassword = 'not_bacon';
+
+bcrypt.hash(myPlaintextPassword, saltRounds).then(async function(hash) {
+   console.log('FROM ' , myPlaintextPassword, ' BECOME ', hash)
+   console.log('HASH LENGTH: ', hash.length)
+
+   // compare
+   const matchA = await bcrypt.compare(myPlaintextPassword, hash)
+   if(matchA){
+   	console.log('MATCHA', true)
+   }else{
+   	console.log('MATCHA', false)
+   }
+
+   // compare
+   const matchB = await bcrypt.compare(someOtherPlaintextPassword, hash)
+   if(matchB){
+   	console.log('MATCHB', true)
+   }else{
+   	console.log('MATCHB', false)
+   }    
+});
+
+console.log('PASSWORD HASHED')
+
+LENGTH: 60
+```
 ## S1
 
 > /api/users

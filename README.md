@@ -823,6 +823,8 @@ class AuditLogListener
 ## S0
 
 - Setup common things: application structure, routes sample
+- Status Code : https://www.restapitutorial.com/httpstatuscodes.html
+- https://docs.nestjs.com/pipes#class-validator
 
 ## S1
 

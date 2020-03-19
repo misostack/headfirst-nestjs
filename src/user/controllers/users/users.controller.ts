@@ -1,5 +1,7 @@
-import { Controller, Get, Post, Put, Patch, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Put, Patch, Delete, Body, Param } from '@nestjs/common';
 import { ApiTags, ApiBearerAuth } from '@nestjs/swagger';
+import { CreateUserDto } from '~/user/models/dto';
+import { UpdateUserDto } from '~/user/models/dto/user.dto';
 
 @ApiBearerAuth()
 @ApiTags('users')
@@ -43,18 +45,21 @@ export class UsersController {
   }
 
   @Post()
-  create() {
-
+  create(@Body() payload: CreateUserDto) {  
+    return payload
   }
 
   @Patch(':id')
-  update() {
-
+  update(@Param('id') id, @Body() payload: UpdateUserDto) {
+    return {
+      id: id,
+      ...payload,      
+    }
   }
 
   @Delete(':id')
-  destroy() {
-
+  destroy(@Param('id') id) {
+    return {id: id}
   }
 
   // Others

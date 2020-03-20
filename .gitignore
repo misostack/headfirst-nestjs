@@ -36,3 +36,5 @@ documents/*.pdf
 
 package-lock.json
 package-lock.json.tmp
+
+.env

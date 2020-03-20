@@ -27,21 +27,23 @@ const ENTITIES = [
   imports: [
     // Config
     ConfigModule.forRoot({
+      isGlobal: false,
       load: [configuration]
     }),
     // DB Connection
     TypeOrmModule.forRootAsync({
-      imports: [ConfigModule],
+      imports: [ConfigModule],      
       useFactory: (configService: ConfigService) => ({
         type: 'postgres',
         host: configService.get<string>('database.host'),
         port: configService.get<number>('database.port'),
         username: configService.get<string>('database.username'),
         password: configService.get<string>('database.password'),
+        database: configService.get<string>('database.name'),
         // try autoload entities
         autoLoadEntities: true,
-        // {module}/models/entities/
-        entities: [__dirname + '/**/*.entity{.ts,.js}'],
+        // {module}/entities/entity.entity.ts
+        entities: [__dirname + '/**/entities/*.entity{.ts,.js}'],
         // entities: ENTITIES,
         // use cli and run schema:sync is better for secured data
         synchronize: false,

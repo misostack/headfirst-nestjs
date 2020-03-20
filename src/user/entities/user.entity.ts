@@ -28,14 +28,14 @@ export class User {
   passwordHash: string;
 
   @Column({
-    type: "nvarchar",
+    type: "varchar",
     length: 60,
     nullable: false,
   })
   firstName: string;
 
   @Column({
-    type: "nvarchar",
+    type: "varchar",
     length: 60,
     nullable: false,
   })

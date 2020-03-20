@@ -868,6 +868,16 @@ select uuid_generate_v4();
 
 - Available fields : https://typeorm.io/#/entities/column-types-for-postgres
 
+- https://typeorm.io/#/using-cli
+- https://typeorm.io/#/migrations
+
+```bash
+yarn db:migration:generate -n CreateUserTable
+yarn db:migration:create -n CreateUserTable
+yarn db:migration:show
+yarn db:migration:run
+yarn db:migration:revert
+```
 
 ```js
 #!/usr/bin/env node

@@ -32,7 +32,10 @@ const ormconfig: ConnectionOptions = {
   ],
   migrations: [
     "src/migration/**/*.ts"
-  ]
+  ],
+  cli: {
+    "migrationsDir": "src/migration"
+  }  
 };
 // sample : https://www.npmjs.com/package/command-line-args
 const optionDefinitions = [

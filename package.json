@@ -18,16 +18,15 @@
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./test/jest-e2e.json",
-    "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
+    "test:e2e": "jest --config ./test/jest-e2e.json",    
     "setup": "npm-run-all build bin:setup",
     "setup:clean": "npm-run-all prebuild build bin:setup:force",
     "bin:example": "node dist/bin/example",
     "bin:setup": "node dist/bin/setup",
     "bin:setup:force": "node dist/bin/setup --force",
-    "db:help": "typeorm --help",
-    "db:sync": "typeorm schema:sync",
-    "db:drop": "typeorm schema:drop"
+    "db:schema:log": "./node_modules/.bin/ts-node ./node_modules/.bin/typeorm schema:log",
+    "db:schema:sync": "./node_modules/.bin/ts-node ./node_modules/.bin/typeorm schema:sync",
+    "db:schema:drop": "./node_modules/.bin/ts-node ./node_modules/.bin/typeorm schema:drop"
   },
   "dependencies": {
     "@nestjs/common": "^7.0.0",

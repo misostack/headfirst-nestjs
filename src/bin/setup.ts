@@ -23,7 +23,7 @@ const ormconfig: ConnectionOptions = {
   port: parseInt(process.env.DATABASE_PORT, 10) || 5432,
   username: process.env.DATABASE_USERNAME || 'root',
   password: process.env.DATABASE_PASSWORD || '123456',
-  name: process.env.DATABASE_NAME || 'example',
+  database: process.env.DATABASE_NAME || 'example',
   synchronize: false,
   logging: true,
   logger: "advanced-console",
@@ -51,7 +51,8 @@ if( fs.existsSync(ormconfigFile) && !options.force){
   console.log(`The ormconfigfile has been existed ${ormconfigFile}`)
 }else{
   try {
-    fs.writeFileSync(ormconfigFile, JSON.stringify(ormconfig, null, 4));
+    fs.writeFileSync(ormconfigFile, JSON.stringify(ormconfig, null, 2));
+    fs.chmodSync(ormconfigFile, 0o600)
     console.log(`Created new file ${ormconfigFile}`);
     fs.closeSync(2)
   } catch (error) {    

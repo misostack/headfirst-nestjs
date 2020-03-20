@@ -36,5 +36,8 @@ documents/*.pdf
 
 package-lock.json
 package-lock.json.tmp
+yarn.lock
 
 .env
+
+ormconfig.json

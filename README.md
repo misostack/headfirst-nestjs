@@ -850,7 +850,14 @@ CREATE DATABASE lolrank
 
 # Test login
 psql postgresql://apidev:123456@127.0.0.1:5432/lolrank
+# https://www.codehub.vn/Fix-loi-ERROR-function-uuid_generate_v4-does-not-exist-trong-PostgreSQL
+psql postgresql://postgres:123456@127.0.0.1:5432/lolrank # only superuser can create extension
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+\df
+select uuid_generate_v4();
 ```
+
+- UUID in Postgres : https://www.postgresqltutorial.com/postgresql-uuid/
 - Validation: https://stackoverflow.com/questions/57797381/validation-does-not-work-with-partialdto-nestjs
 
 - Configuration : https://stackoverflow.com/questions/51721930/nestjs-configuration-with-dotenv

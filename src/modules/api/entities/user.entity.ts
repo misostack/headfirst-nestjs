@@ -1,7 +1,8 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, BaseEntity } from 'typeorm';
+import { BaseModel } from './base-model.entity';
 
 @Entity()
-export class User {
+export class User extends BaseModel{
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -14,20 +15,13 @@ export class User {
 
   @Column({
     type: "varchar",
-    length: 1,
-    nullable: true,
-    default: ""
+    length: 120,
+    nullable: false,
   })
   password: string;
 
   @Column({
-    type: "varchar",
-    length: 60,
-    nullable: false,
-  })
-  passwordHash: string;
-
-  @Column({
+    name: 'first_name',
     type: "varchar",
     length: 60,
     nullable: false,
@@ -35,12 +29,16 @@ export class User {
   firstName: string;
 
   @Column({
+    name: 'last_name',
     type: "varchar",
     length: 60,
     nullable: false,
   })
   lastName: string;
 
-  @Column({ default: true })
+  @Column({ name: 'is_active', default: true })
   isActive: boolean;
+
+  @Column({ name:'is_deleted', default: false })
+  isDeleted: boolean;
 }

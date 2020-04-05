@@ -1,10 +1,11 @@
-import { Controller, Get, Post, Patch, Delete, Body, Param, Put } from '@nestjs/common';
+import { Controller, Get, Post, Patch, Delete, Body, Param, Put, UseGuards } from '@nestjs/common';
 import { ApiTags, ApiBearerAuth } from '@nestjs/swagger';
 import { 
   CreateUserDto,
   UpdateUserDto,
 } from '@user/dtos';
 import { ConfigService } from '@nestjs/config';
+import { AuthGuard } from '@user/model';
 
 @ApiBearerAuth()
 @ApiTags('users')
@@ -16,6 +17,7 @@ export class UsersController {
 
   }
   // Common routes
+  @UseGuards(AuthGuard)
   @Get()
   index() {
     // refs : https://developer.atlassian.com/server/confluence/pagination-in-the-rest-api/

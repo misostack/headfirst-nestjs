@@ -16,8 +16,9 @@
         ],
         "@modules/*": ["src/modules/*"],
         "@base/*": ["src/modules/base/*"],
+        "@api/*": ["src/modules/api/*"],
         "@user/*": ["src/modules/user/*"],
-        "@example/*": ["src/modules/example/*"],
+        "@web/*": ["src/modules/web/*"],
         "*": [
             "./node_modules/*"
         ]

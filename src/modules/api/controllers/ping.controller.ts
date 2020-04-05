@@ -1,21 +1,19 @@
 import { Controller, Get } from '@nestjs/common';
-import { PingDTO } from '@base/models/ping.dto';
 import { ApiTags } from '@nestjs/swagger';
 import { ConfigService } from '@nestjs/config';
+import { PingData } from '@api/interfaces';
 
-@ApiTags('base')
+@ApiTags('api')
 @Controller()
-export class BaseController {
+export class PingController {
   constructor(private configService: ConfigService) {
 
   }
   @Get()
-  index(): PingDTO {
+  index(): PingData {
     return {
       environment: this.configService.get<string>('environment'),
-      apiVersion: 20200318001,
-      lastUpdated: new Date(2020, 3, 18),
-      status: true
+      apiVersion: '20200318001',
     }
   }
 }

@@ -4,19 +4,18 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { RouterModule, Routes } from 'nest-router';
 import { BaseModule } from '@base/base.module';
-import { UserModule } from '@user/user.module';
+import { ApiModule } from './modules/api/api.module';
+import { WebModule } from './modules/web/web.module';
 
 const routes: Routes = [
   {
-    path: '/v1',
-    module: BaseModule,
-    children: [
-      {
-        path: '/users',
-        module: UserModule
-      }
-    ]
-  }
+    path: '',
+    module: ApiModule,
+  },
+  {
+    path: '/web',
+    module: WebModule,
+  },  
 ]
 
 const ENTITIES = [
@@ -54,7 +53,8 @@ const ENTITIES = [
     RouterModule.forRoutes(routes),
     // add module
     BaseModule,
-    UserModule,
+    ApiModule,
+    WebModule,
   ],
   controllers: [
     

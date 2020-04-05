@@ -3,6 +3,23 @@
 ![model][model]
 
 [model]: ./assets/model.jpg
+
+## Todo
+
+1. Routes
+
+```js
+{
+    v1: [
+        auth: [],
+        users: [],
+        web: [],
+    ]
+}
+```
+
+
+
 ## Sample Project
 
 > Project Name: Lol Ranking System API

@@ -21,7 +21,7 @@ const config: ConnectionOptions = {
   password: process.env.DATABASE_PASSWORD || '123456',
   name: process.env.DATABASE_NAME || 'example',
   // {module}/entities/resource.entity.ts
-  entities: [SRC_DIR + '/**/entities/*.entity{.ts,.js}'],
+  entities: [SRC_DIR + '/modules/api/entities/*.entity{.ts,.js}'],
 
   // We are using migrations, synchronize should be set to false.
   synchronize: false,

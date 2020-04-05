@@ -5,7 +5,7 @@ import { PingData } from '@api/interfaces';
 
 @ApiTags('api')
 @Controller()
-export class PingController {
+export class HomeController {
   constructor(private configService: ConfigService) {
 
   }

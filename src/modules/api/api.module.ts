@@ -1,6 +1,12 @@
 import { Module } from '@nestjs/common';
 import { BaseModule } from '../base/base.module';
-import { PingController } from './controllers';
+import { 
+  HomeController,
+} from './controllers';
+
+const CONTROLLERS = [
+  HomeController,
+]
 
 @Module({
   imports: [
@@ -8,7 +14,7 @@ import { PingController } from './controllers';
     BaseModule,
   ],
   controllers: [
-    PingController,
+    ...CONTROLLERS
   ],
   providers: [
     

@@ -1,5 +1,5 @@
-import { PingController } from './ping.controller';
+import { HomeController } from './home.controller';
 
 export {
-  PingController,
+  HomeController,
 }

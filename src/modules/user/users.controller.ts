@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Patch, Delete, Body, Param } from '@nestjs/common';
+import { Controller, Get, Post, Patch, Delete, Body, Param, Put } from '@nestjs/common';
 import { ApiTags, ApiBearerAuth } from '@nestjs/swagger';
 import { 
   CreateUserDto,
@@ -65,6 +65,14 @@ export class UsersController {
       ...payload,      
     }
   }
+
+  @Put(':id')
+  replace(@Param('id') id, @Body() payload: UpdateUserDto) {
+    return {
+      id: id,
+      ...payload,      
+    }
+  }  
 
   @Delete(':id')
   destroy(@Param('id') id) {

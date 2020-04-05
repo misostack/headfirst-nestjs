@@ -1,5 +1,8 @@
 # NestJS
 
+![model][model]
+
+[model]: ./assets/model.jpg
 ## Sample Project
 
 > Project Name: Lol Ranking System API
@@ -151,7 +154,7 @@ GET|POST /users/logout
                         "RoleBaseDTO": [
                             "UserTypes : Constant"
                             "RoleBaseResourceAccess(resource) : Decorator"
-                            "RoleBaseResourceAccessPolicy : Service"
+                            "RoleBaseResourceAccessPolicy : Service" 
                         ],
                         "RoleBaseResourceAccess": [
                             {
@@ -878,6 +881,8 @@ yarn db:migration:show
 yarn db:migration:run
 yarn db:migration:revert
 ```
+
+- [Timezone story](https://medium.com/building-the-system/how-to-store-dates-and-times-in-postgresql-269bda8d6403)
 
 ```js
 #!/usr/bin/env node

@@ -3,8 +3,8 @@ import configuration from './config/configuration';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { RouterModule, Routes } from 'nest-router';
-import { BaseModule } from './base/base.module';
-import { UserModule } from './user/user.module';
+import { BaseModule } from '@base/base.module';
+import { UserModule } from '@user/user.module';
 
 const routes: Routes = [
   {

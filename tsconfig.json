@@ -14,9 +14,10 @@
         "~/*": [
             "src/*"
         ],
-        "@base/*": ["src/base/*"],
-        "@user/*": ["src/user/*"],
-        "@example/*": ["src/example/*"],
+        "@modules/*": ["src/modules/*"],
+        "@base/*": ["src/modules/base/*"],
+        "@user/*": ["src/modules/user/*"],
+        "@example/*": ["src/modules/example/*"],
         "*": [
             "./node_modules/*"
         ]

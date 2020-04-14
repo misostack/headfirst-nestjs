@@ -6,8 +6,13 @@ import {
   AuthValidateDTO
 } from './auth.dto';
 
+import {
+  CreateExampleDTO,
+} from './example.dto';
+
 export {
   CreateUserDTO,
   UpdateUserDTO,
   AuthValidateDTO,
+  CreateExampleDTO,
 }

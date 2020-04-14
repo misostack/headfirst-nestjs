@@ -91,5 +91,9 @@
     },
     "coverageDirectory": "../coverage",
     "testEnvironment": "node"
+  },
+  "engines": {
+    "node": "12.16.2",
+    "yarn": "1.22.4"
   }
 }

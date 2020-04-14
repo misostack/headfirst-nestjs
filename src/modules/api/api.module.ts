@@ -3,6 +3,7 @@ import { BaseModule } from '@base/base.module';
 
 import { 
   HomeController,
+  ExamplesController,
 } from './controllers/public';
 
 import { 
@@ -17,6 +18,7 @@ import { AuthMiddleware } from './middlewares';
 
 const PUBLIC_CONTROLLERS = [
   HomeController,
+  ExamplesController,
 ];
 const PRIVATE_CONTROLLERS = [
   UsersController,

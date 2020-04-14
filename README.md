@@ -1,5 +1,15 @@
 # NestJS
 
+## TODO LIST
+
+- [ ] Architecture Design
+- [ ] Entities
+- [ ] Migrations: entities, relations
+- [ ] Seeds
+- [ ] Services : use Repository
+- [ ] Auth: Register, Login, Update Profile
+- [ ] Simple CRUD with filters
+
 ## Installation
 
 ```bash

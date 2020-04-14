@@ -5,6 +5,14 @@
 ```bash
 sudo apt install node-gyp
 ```
+### PDF
+
+```bash
+yarn build:only
+node ./dist/bin/wkhtmltopdf.js
+which wkhtmltopdf
+/usr/local/bin/wkhtmltopdf
+```
 
 ![model][model]
 

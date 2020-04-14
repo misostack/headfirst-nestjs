@@ -43,3 +43,4 @@ yarn.lock
 ormconfig.json
 
 dump.rdb
+tmp/*

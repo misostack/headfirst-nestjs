@@ -1,5 +1,11 @@
 # NestJS
 
+## Installation
+
+```bash
+sudo apt install node-gyp
+```
+
 ![model][model]
 
 [model]: ./assets/model.jpg

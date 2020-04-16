@@ -34,11 +34,7 @@ const ENTITIES = [
       imports: [ConfigModule],      
       useFactory: (configService: ConfigService) => ({
         type: 'postgres',
-        host: configService.get<string>('database.host'),
-        port: configService.get<number>('database.port'),
-        username: configService.get<string>('database.username'),
-        password: configService.get<string>('database.password'),
-        database: configService.get<string>('database.name'),
+        url: configService.get<string>('DATABASE_URL'),     
         // try autoload entities
         autoLoadEntities: true,
         // {module}/entities/entity.entity.ts

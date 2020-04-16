@@ -2,7 +2,7 @@ import { Entity, Column, PrimaryGeneratedColumn, BaseEntity } from 'typeorm';
 import { BaseModel } from './base-model.entity';
 
 @Entity()
-export class User extends BaseModel{
+export abstract class User extends BaseModel{
   @PrimaryGeneratedColumn('uuid')
   id: string;
 

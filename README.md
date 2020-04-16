@@ -1,14 +1,15 @@
-# NestJS
+# NestJS BoilerPlater
 
-## TODO LIST
+## Sample Application
 
-- [ ] Architecture Design
-- [ ] Entities
-- [ ] Migrations: entities, relations
-- [ ] Seeds
-- [ ] Services : use Repository
-- [ ] Auth: Register, Login, Update Profile
-- [ ] Simple CRUD with filters
+> Bộ đánh giá chỉ số rủi ro lây nhiễm Covid-19 
+> Các Doanh Nghiệp tại TPHCM 
+> Nguồn : https://znews-photo.zadn.vn/w1024/Uploaded/ofh_cgmzstgk/2020_04_10/BO_CHI_SO_DANH_GIA_RUI_RO_LAY_NHIEM_COVID_19_CAC_DOANH_NGHIEP_TAI_TP.HCM1.jpg
+
+
+## Application Architecture
+
+
 
 ## Installation
 

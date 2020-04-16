@@ -6,6 +6,30 @@
 > Các Doanh Nghiệp tại TPHCM 
 > Nguồn : https://znews-photo.zadn.vn/w1024/Uploaded/ofh_cgmzstgk/2020_04_10/BO_CHI_SO_DANH_GIA_RUI_RO_LAY_NHIEM_COVID_19_CAC_DOANH_NGHIEP_TAI_TP.HCM1.jpg
 
+## Getting started
+
+### Prerequisites
+
+1. PostgreSQL
+2. NodeJS
+- Version: 10.20.1
+- node-gyp
+- typeorm
+3. Wkhtmltopdf
+- Version: 0.12.5
+4. Redis
+
+### Setup and run
+
+```bash
+# ENV CONFIG
+cp .env.sample .env
+# Adjust your env file
+# setup ORM from
+yarn setup
+# Run
+yarn start:dev
+```
 
 ## Application Architecture
 

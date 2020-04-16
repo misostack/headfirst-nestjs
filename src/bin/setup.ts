@@ -19,7 +19,7 @@ if(fs.existsSync(`${ROOT_DIR}/.env`)){
 // Check typeORM documentation for more information.
 const ormconfig: ConnectionOptions = {
   type: 'postgres',
-  url: process.env.DATABASE_URL || 'postgresql://apidev:123456@localhost:5432/lolrank',  
+  url: process.env.DATABASE_URL || '',  
   synchronize: false,
   logging: true,
   logger: "advanced-console",

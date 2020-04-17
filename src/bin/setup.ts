@@ -2,7 +2,10 @@ import * as path from 'path';
 import * as dotenv from 'dotenv';
 import * as fs from 'fs';
 import * as commandLineArgs from 'command-line-args';
+import * as chalk from 'chalk';
 import {ConnectionOptions} from 'typeorm';
+
+const log = console.log;
 
 const todoList = {
   createORMFile: {
@@ -24,12 +27,14 @@ const ormconfig: ConnectionOptions = {
   logging: true,
   logger: "advanced-console",
   entities: [
-    "src/**/entities/*.ts"
+    "src/modules/api/entities/*.ts"
   ],
   migrations: [
     "src/migration/**/*.ts"
   ],
   cli: {
+    "entitiesDir": "src/modules/api/entities",
+    "subscribersDir": "src/modules/api/subscribers",
     "migrationsDir": "src/migration"
   }  
 };
@@ -41,21 +46,22 @@ const options : {
   force: boolean,
 } = commandLineArgs(optionDefinitions)
 
-console.info('STARTING SETUP')
-console.log('---------------------')
+
+log(chalk.blue('STARTING SETUP'));
+log('---------------------');
 
 // write file
 const ormconfigFile = `${ROOT_DIR}/ormconfig.json`;
 if( fs.existsSync(ormconfigFile) && !options.force){
-  console.log(`The ormconfigfile has been existed ${ormconfigFile}`)
+  log(chalk.yellow(`The ormconfigfile has been existed ${ormconfigFile}`));
 }else{
   try {
     fs.writeFileSync(ormconfigFile, JSON.stringify(ormconfig, null, 2));
     fs.chmodSync(ormconfigFile, 0o600)
-    console.log(`Created new file ${ormconfigFile}`);
+    log(chalk.green(`Created new file ${ormconfigFile}`));
     fs.closeSync(2)
   } catch (error) {    
-    console.error(error)
+    log(chalk.red(error));
     todoList.createORMFile.status = false;
   }  
 }
@@ -63,8 +69,8 @@ if( fs.existsSync(ormconfigFile) && !options.force){
 // statuses
 
 Object.keys(todoList).map((k, idx) => {
-  console.info(`${idx + 1}. ${todoList[k].task} - ${todoList[k].status ? 'success': 'failed'}`)
+  log(`${idx + 1}. ${todoList[k].task} - ${todoList[k].status ? chalk.green('success'): chalk.red('failed')}`)
 })
 
-console.log('---------------------')
-console.info('END SETUP')
+log('---------------------')
+log(chalk.blue('END SETUP'))

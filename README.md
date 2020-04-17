@@ -29,10 +29,22 @@ cp .env.sample .env
 yarn setup
 # Run
 yarn start:dev
+# Install typeorm global
+yarn global add typeorm
 ```
+
+## Entity
+
+**1.Create a new entity**
+
+> typeorm entity:create -n EntityName
+
 
 ## Application Architecture
 
+## Todo
+
+1. ENV setup
 
 
 ## Installation

@@ -8,6 +8,103 @@
 
 ## Getting started
 
+### Analysis
+
+> Ứng dụng đánh giá chỉ số rủi ro lây nhiễm cho doanh nghiệp tại TPHCM
+
+> Evaluation index for risk of infection in HCM City
+
+**Application**
+
+1. API
+2. Admin App - Administrators
+3. Web App - End User
+
+**Users:**
+
+- SuperAdmin - Manage system users
+- Admin - Manage application users, dataset
+- EndUser - Personal | Company
+
+**Dataset**
+
+A.Rates : 10%(very low), >10%-30%(low), 30%-50%(average), 50%-80%(high), 80%-100%(very high)
+
+10% - Permit
+>10%-30% - Permit, must check frequently
+30%-50% - Permit with condition that has no index lower than 7 points
+50%-80% - Must have solution to reduce risk to be permitted
+80%-100% - No Permit
+
+B.Evaluation Indexes
+
+1. Number of employees (TP1)
+
+< 100 : 1 point
+100-500 : 2 points
+500-1000 : 5 points
+1000-5000 : 7 points
+> 5000 : 10 points
+
+2. Number of employees per square meters (TP2)
+
+0.06 : 1 point
+0.1 : 2 point
+0.25 : 6 point
+0.4 : 8 point
+1 : 10 point
+
+3. Hand wash and bacterial spray of employees (TP3)
+
+All factories: 1 point
+Erratic: 10 points
+
+4. Percentage of wearing mask of employees (TP4)
+
+All factories : 1 point
+Erratic : 10 points
+
+5. Temperature checking (TP5)
+
+All factories : 1 point
+Erratic : 10 points
+
+6. The distance of employees in canteen (TP6)
+
+> 2m : 1 point
+1.5m - 2m : 3 points
+1m - 1.5m : 6 points
+0.5 - 1m : 8 points
+< 0.5 : 10 points
+
+7. Number of employess go to work by bus (TP7)
+
+< 100 : 1 point
+100-500 : 3 points
+500-1000 : 6 points
+1000-5000: 8 points
+> 5000: 10 points
+
+8. Number of bus stop areas (TP8)
+
+1 : 1 point
+2-3: 3 points
+4-5 : 7 points
+> 5 : 10 points
+
+9. Percentage of provided masks
+
+100% : 1 point
+80%-100%: 2 points
+60%-80% : 6 points
+40%-60% : 8 points
+< 40% : 10 points
+
+10. Night shift
+
+No : 1 point
+Yes : 10 points
+
 ### Prerequisites
 
 1. PostgreSQL

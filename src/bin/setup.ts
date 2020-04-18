@@ -30,7 +30,7 @@ const ormconfig: ConnectionOptions = {
     "src/modules/api/entities/*.ts"
   ],
   migrations: [
-    "src/migration/**/*.ts"
+    "src/db/migration/**/*.ts"
   ],
   cli: {
     "entitiesDir": "src/modules/api/entities",

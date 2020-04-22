@@ -3,7 +3,6 @@ import { BaseModel } from './base-model.entity';
 import { UserStatusEnum } from '@api/enums';
 import { EncryptHelper } from '@base/helpers';
 
-@Entity()
 export abstract class BaseUser extends BaseModel{
   @PrimaryGeneratedColumn('uuid')
   id: string;

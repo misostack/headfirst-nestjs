@@ -140,6 +140,10 @@ yarn global add typeorm
 **1.Create a new entity**
 
 > yarn typeorm entity:create -n EntityName
+> yarn typeorm migration:generate -n create_any_table
+> yarn typeorm migration:show
+> yarn typeorm migration:run
+> yarn typeorm migration:revert
 
 ```json
     "db:schema:log": "./node_modules/.bin/ts-node ./node_modules/.bin/typeorm schema:log",

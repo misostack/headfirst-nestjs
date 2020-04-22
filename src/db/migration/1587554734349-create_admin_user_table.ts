@@ -51,13 +51,13 @@ export class CreateAdminUserTable1587554734349 implements MigrationInterface {
                     isNullable: false,
                 },
                 {
-                    name: "firstName",
+                    name: "first_name",
                     type: "varchar",
                     length: "60",
                     isNullable: false,
                 },
                 {
-                    name: "lastName",
+                    name: "last_name",
                     type: "varchar",
                     length: "60",
                     isNullable: false,

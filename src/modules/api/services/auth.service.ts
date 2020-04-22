@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { Request } from 'express';
-import { ErrorHelper } from '~/modules/base/helpers';
+import { ErrorHelper } from '@base/helpers';
 
 @Injectable()
 export class AuthService {

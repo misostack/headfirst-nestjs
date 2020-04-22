@@ -1,8 +1,10 @@
-import { Entity, Column, PrimaryGeneratedColumn, BaseEntity, BeforeInsert, BeforeUpdate } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, BaseEntity, BeforeInsert, BeforeUpdate, Index } from 'typeorm';
 import { BaseModel } from './base-model.entity';
 import { UserStatusEnum } from '@api/enums';
 import { EncryptHelper } from '@base/helpers';
 
+@Index("IDX_EMAIL", { synchronize: false })
+@Index("IDX_FIRSTNAME_LASTNAME", { synchronize: false })
 export abstract class BaseUser extends BaseModel{
   @PrimaryGeneratedColumn('uuid')
   id: string;
@@ -16,7 +18,7 @@ export abstract class BaseUser extends BaseModel{
 
   @Column({
     type: "varchar",
-    length: 120,
+    length: 60,
     nullable: false,
   })
   password: string;
@@ -40,13 +42,12 @@ export abstract class BaseUser extends BaseModel{
   @Column("enum", { 
     enum: UserStatusEnum,
     nullable: false,
-    default: UserStatusEnum.INACTIVE,
   })
   status: UserStatusEnum;
 
   @BeforeInsert()
   @BeforeUpdate()  
-  hashedPassword() {
-    this.password = EncryptHelper.hash(this.password);
+  async hashedPassword() {
+    this.password = await EncryptHelper.hash(this.password);
   }
 }

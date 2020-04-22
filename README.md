@@ -130,7 +130,12 @@ yarn start:dev
 yarn global add typeorm
 ```
 
-## Entity
+### Entities & Migration
+
+**List of entities**
+
+- SystemUser : admin and super admin ( role )
+- EndUser
 
 **1.Create a new entity**
 

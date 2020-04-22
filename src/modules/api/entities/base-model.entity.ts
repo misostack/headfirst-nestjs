@@ -1,9 +1,22 @@
-import { BaseEntity, CreateDateColumn, UpdateDateColumn } from "typeorm";
+import { BaseEntity, Column, BeforeInsert, BeforeUpdate } from "typeorm";
+import { DateTimeHelper } from "@base/helpers";
 
 export abstract class BaseModel extends BaseEntity{
-  @CreateDateColumn({name:'created_at', type: 'timestamp with time zone'})
+  @Column({name:'created_at', type: 'bigint', nullable: true})
   createdAt;
   
-  @UpdateDateColumn({name:'update_at', type: 'timestamp with time zone'})
+  @Column({name:'update_at', type: 'bigint', nullable: true})
   updatedAt;
+
+  @BeforeInsert()
+  beforeInsert() {
+    const now = DateTimeHelper.now();;
+    this.createdAt = now;
+    this.updatedAt = now;
+  }
+
+  @BeforeUpdate()
+  beforeUpdate() {
+    this.updatedAt = DateTimeHelper.now();
+  }
 }

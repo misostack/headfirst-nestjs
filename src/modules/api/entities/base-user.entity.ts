@@ -1,8 +1,10 @@
-import { Entity, Column, PrimaryGeneratedColumn, BaseEntity } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, BaseEntity, BeforeInsert, BeforeUpdate } from 'typeorm';
 import { BaseModel } from './base-model.entity';
+import { UserStatusEnum } from '@api/enums';
+import { EncryptHelper } from '@base/helpers';
 
 @Entity()
-export abstract class User extends BaseModel{
+export abstract class BaseUser extends BaseModel{
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -36,9 +38,16 @@ export abstract class User extends BaseModel{
   })
   lastName: string;
 
-  @Column({ name: 'is_active', default: true })
-  isActive: boolean;
+  @Column("enum", { 
+    enum: UserStatusEnum,
+    nullable: false,
+    default: UserStatusEnum.INACTIVE,
+  })
+  status: UserStatusEnum;
 
-  @Column({ name:'is_deleted', default: false })
-  isDeleted: boolean;
+  @BeforeInsert()
+  @BeforeUpdate()  
+  hashedPassword() {
+    this.password = EncryptHelper.hash(this.password);
+  }
 }

@@ -5,7 +5,7 @@ import { classToPlain } from 'class-transformer';
 import {paginate, Pagination, IPaginationOptions} from 'nestjs-typeorm-paginate';
 import { AdminUser } from '@api/entities';
 import { UserStatusEnum } from '@api/enums';
-import { CreateAdminUserDTO, UpdateAdminUserDTO } from '@api/dtos';
+import { CreateAdminUserDTO, UpdateAdminUserDTO, AdminUserDTO } from '@api/dtos';
 
 @Injectable()
 export class AdminUserService {
@@ -15,8 +15,19 @@ export class AdminUserService {
     private readonly adminUserRepository: Repository<AdminUser>,
   ) {}
 
-  async findAll(options: IPaginationOptions): Promise<Pagination<AdminUser>> {
-    return paginate<AdminUser>(this.adminUserRepository, options);
+  async findAll(options: IPaginationOptions, s: string): Promise<Pagination<AdminUserDTO>> {
+    // return paginate<AdminUser>(this.adminUserRepository, options);
+    const queryBuilder = this.adminUserRepository.createQueryBuilder('c');
+    s = s.trim();
+    if(s.length > 0) {
+      queryBuilder.orWhere('email like :s', {s: `%${s}%`});
+      queryBuilder.orWhere('first_name like :s', {s: `%${s}%`});
+      queryBuilder.orWhere('last_name like :s', {s: `%${s}%`});
+    }
+    let records = await paginate<AdminUserDTO>(queryBuilder, options);
+    const items = classToPlain(records.items);
+    records = Object.assign(records, {items: items});
+    return records;
   }
 
   async findOneByEmail(email: string) {

@@ -30,21 +30,25 @@ export class AdminUsersController {
     status: 200,
   })
   @ApiQuery(
+    {name: 's',required: false,type: 'string'},  
+  )  
+  @ApiQuery(
     {name: 'page',required: false,type: 'number'},    
   )
   @ApiQuery(
-    {name: 'limit',required: false,type: 'number'},    
+    {name: 'limit',required: false,type: 'number'},  
   )  
   index(
     @Query('page') page: number = 1, 
     @Query('limit') limit: number = 5,
+    @Query('s') s: string = ''
   ){
     limit = limit > 100 ? 100 : limit;
     return this.adminUserService.findAll({
       page,
       limit,
       route: 'http://cats.com/cats',
-    });
+    }, s);
   }
 
   @Get(':id')

@@ -25,7 +25,7 @@
     "bin:example": "node dist/bin/example",
     "bin:setup": "node dist/bin/setup",
     "bin:setup:force": "node dist/bin/setup --force",
-    "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/.bin/typeorm"
+    "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/.bin/typeorm"   
   },
   "dependencies": {
     "@nestjs/common": "^7.0.0",

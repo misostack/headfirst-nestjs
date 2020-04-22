@@ -35,7 +35,7 @@ const ormconfig: ConnectionOptions = {
   cli: {
     "entitiesDir": "src/modules/api/entities",
     "subscribersDir": "src/modules/api/subscribers",
-    "migrationsDir": "src/migration"
+    "migrationsDir": "src/db/migration"
   }  
 };
 // sample : https://www.npmjs.com/package/command-line-args

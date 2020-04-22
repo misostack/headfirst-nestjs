@@ -1,7 +1,7 @@
 import {MigrationInterface, QueryRunner} from "typeorm";
 
-export class InitSchema1587554197357 implements MigrationInterface {
-    name = 'InitSchema1587554197357'
+export class InitSchema1587554734349 implements MigrationInterface {
+    name = 'InitSchema1587554734349'
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.query(`CREATE TYPE "base_user_status_enum" AS ENUM('active', 'inactive', 'deleted')`, undefined);

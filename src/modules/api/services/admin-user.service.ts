@@ -1,10 +1,11 @@
 import { Injectable, Inject } from '@nestjs/common';
-import { Repository, getRepository, DeleteResult } from 'typeorm';
-import { AdminUser } from '@api/entities';
+import { Repository, DeleteResult } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
-import { CreateAdminUserDTO, UpdateAdminUserDTO } from '@api/dtos';
-import { UserStatusEnum } from '../enums';
 import { classToPlain } from 'class-transformer';
+import {paginate, Pagination, IPaginationOptions} from 'nestjs-typeorm-paginate';
+import { AdminUser } from '@api/entities';
+import { UserStatusEnum } from '@api/enums';
+import { CreateAdminUserDTO, UpdateAdminUserDTO } from '@api/dtos';
 
 @Injectable()
 export class AdminUserService {
@@ -14,8 +15,8 @@ export class AdminUserService {
     private readonly adminUserRepository: Repository<AdminUser>,
   ) {}
 
-  async findAll(): Promise<any> {
-    return (await this.adminUserRepository.find()).map(data => classToPlain(data));
+  async findAll(options: IPaginationOptions): Promise<Pagination<AdminUser>> {
+    return paginate<AdminUser>(this.adminUserRepository, options);
   }
 
   async findOneByEmail(email: string) {

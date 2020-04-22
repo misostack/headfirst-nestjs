@@ -1,5 +1,5 @@
-import { Controller, Get, Post, Patch, Delete, Body, Param, Put, UseGuards } from '@nestjs/common';
-import { ApiTags, ApiBearerAuth, ApiResponse } from '@nestjs/swagger';
+import { Controller, Get, Post, Patch, Delete, Body, Param, Put, UseGuards, Query } from '@nestjs/common';
+import { ApiTags, ApiBearerAuth, ApiResponse, ApiQuery } from '@nestjs/swagger';
 import { ConfigService } from '@nestjs/config';
 
 import {
@@ -11,6 +11,8 @@ import {
 import { 
   AdminUserService,
 } from '@api/services';
+import { Pagination } from 'nestjs-typeorm-paginate';
+import { AdminUser } from '../../entities';
 
 
 
@@ -26,13 +28,23 @@ export class AdminUsersController {
   @Get()
   @ApiResponse({
     status: 200,
-    isArray: true,
-    type: AdminUserDTO,
-  })  
-  index() {
-    // refs : https://developer.atlassian.com/server/confluence/pagination-in-the-rest-api/
-    // https://dzone.com/articles/creating-a-rest-api-manual-pagination-sorting-and
-    return this.adminUserService.findAll();
+  })
+  @ApiQuery(
+    {name: 'page',required: false,type: 'number'},    
+  )
+  @ApiQuery(
+    {name: 'limit',required: false,type: 'number'},    
+  )  
+  index(
+    @Query('page') page: number = 1, 
+    @Query('limit') limit: number = 5,
+  ){
+    limit = limit > 100 ? 100 : limit;
+    return this.adminUserService.findAll({
+      page,
+      limit,
+      route: 'http://cats.com/cats',
+    });
   }
 
   @Get(':id')

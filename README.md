@@ -139,8 +139,21 @@ yarn global add typeorm
 
 **1.Create a new entity**
 
-> typeorm entity:create -n EntityName
+> yarn typeorm entity:create -n EntityName
 
+```json
+    "db:schema:log": "./node_modules/.bin/ts-node ./node_modules/.bin/typeorm schema:log",
+    "db:schema:sync": "./node_modules/.bin/ts-node ./node_modules/.bin/typeorm schema:sync",
+    "db:schema:drop": "./node_modules/.bin/ts-node ./node_modules/.bin/typeorm schema:drop",
+    "db:migration:create": "yarn typeorm migration:create",
+    "db:migration:generate": "./node_modules/.bin/ts-node ./node_modules/.bin/typeorm migration:generate",
+    "db:migration:show": "./node_modules/.bin/ts-node ./node_modules/.bin/typeorm migration:show",
+    "db:migration:run": "./node_modules/.bin/ts-node ./node_modules/.bin/typeorm migration:run",
+    "db:migration:revert": "./node_modules/.bin/ts-node ./node_modules/.bin/typeorm migration:revert",
+    "db:cache:clear": "./node_modules/.bin/ts-node ./node_modules/.bin/typeorm cache:clear",
+    "db:query": "./node_modules/.bin/ts-node ./node_modules/.bin/typeorm query",
+    "db:version": "./node_modules/.bin/ts-node ./node_modules/.bin/typeorm version"
+```
 
 ## Application Architecture
 

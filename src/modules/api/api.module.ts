@@ -3,14 +3,9 @@ import { BaseModule } from '@base/base.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { 
-  HomeController,
-  ExamplesController,
-} from './controllers/public';
-
-import { 
-  UsersController,
-  AuthController, 
-} from './controllers/private';
+  AdminUsersController,
+  AdminAuthController, 
+} from './controllers/admin';
 
 import { 
   AuthService, AdminUserService,
@@ -25,14 +20,12 @@ import {
   isUniqueValidator,
 } from './validators';
 
-const PUBLIC_CONTROLLERS = [
-  HomeController,
-  ExamplesController,
+
+const ADMIN_CONTROLLERS = [
+  AdminUsersController,
+  AdminAuthController,
 ];
-const PRIVATE_CONTROLLERS = [
-  UsersController,
-  AuthController,
-]
+
 const PROVIDERS = [
   // Services
   AuthService,
@@ -53,8 +46,7 @@ const ENTITIES = [
     TypeOrmModule.forFeature(ENTITIES),
   ],
   controllers: [
-    ...PUBLIC_CONTROLLERS,
-    ...PRIVATE_CONTROLLERS,
+    ...ADMIN_CONTROLLERS,
   ],
   providers: [
     ...PROVIDERS, 
@@ -65,10 +57,10 @@ export class ApiModule implements NestModule{
     consumer
     .apply(AuthMiddleware)
     .exclude(
-      'private/auth/(.*)'      
+      'admin/auth/(.*)'      
     )
     .forRoutes(
-      {path: 'private', method: RequestMethod.ALL}
+      {path: 'admin', method: RequestMethod.ALL}
     )
   }
 }

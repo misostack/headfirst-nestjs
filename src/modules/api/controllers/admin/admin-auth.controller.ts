@@ -5,9 +5,9 @@ import { AuthValidateData } from '@api/interfaces';
 
 
 @ApiBearerAuth()
-@ApiTags('private', 'auth')
-@Controller('private/auth')
-export class AuthController {
+@ApiTags('admin')
+@Controller('admin/auth')
+export class AdminAuthController {
   // Create a new jwt token
   @Post('validate')
   validate(@Body() payload: AuthValidateDTO) : AuthValidateData{

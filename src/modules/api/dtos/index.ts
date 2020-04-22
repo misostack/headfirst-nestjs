@@ -1,25 +1,18 @@
-import {
-  CreateUserDTO, UpdateUserDTO,
-} from './user.dto';
-
+// Admin
 import {
   AdminUserDTO,
   CreateAdminUserDTO,
+  UpdateAdminUserDTO,
 } from './admin-user.dto';
 
 import {
   AuthValidateDTO
 } from './auth.dto';
 
-import {
-  CreateExampleDTO,
-} from './example.dto';
 
 export {
-  CreateUserDTO,
-  UpdateUserDTO,
   AuthValidateDTO,
-  CreateExampleDTO,
   AdminUserDTO,
   CreateAdminUserDTO,
+  UpdateAdminUserDTO,
 }

@@ -3,10 +3,9 @@ import { ApiTags, ApiBearerAuth, ApiResponse } from '@nestjs/swagger';
 import { ConfigService } from '@nestjs/config';
 
 import {
-  CreateUserDTO,
-  UpdateUserDTO,
   CreateAdminUserDTO,
   AdminUserDTO,
+  UpdateAdminUserDTO,
 } from '@api/dtos';
 
 import { 
@@ -16,9 +15,9 @@ import {
 
 
 @ApiBearerAuth()
-@ApiTags('private', 'users')
-@Controller('private/users')
-export class UsersController {
+@ApiTags('admin')
+@Controller('admin/users')
+export class AdminUsersController {
   constructor(
     private configService: ConfigService,
     private adminUserService: AdminUserService
@@ -37,8 +36,13 @@ export class UsersController {
   }
 
   @Get(':id')
-  show() {
-
+  @ApiResponse({
+    status: 200,
+    isArray: false,
+    type: AdminUserDTO,
+  })  
+  show(@Param('id') id: string) {
+    return this.adminUserService.findOneById(id);
   }
 
   @Post()
@@ -47,23 +51,12 @@ export class UsersController {
   }
 
   @Patch(':id')
-  update(@Param('id') id, @Body() payload: UpdateUserDTO) {
-    return {
-      id: id,
-      ...payload,      
-    }
+  update(@Param('id') id: string, @Body() payload: UpdateAdminUserDTO) {
+    return this.adminUserService.updateOne(id, payload);
   }
 
-  @Put(':id')
-  replace(@Param('id') id, @Body() payload: UpdateUserDTO) {
-    return {
-      id: id,
-      ...payload,      
-    }
-  }  
-
   @Delete(':id')
-  destroy(@Param('id') id) {
-    return {id: id}
+  destroy(@Param('id') id: string) {
+    return this.adminUserService.delete(id);
   }  
 }

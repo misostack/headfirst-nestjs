@@ -1,5 +1,6 @@
 import { Module, NestModule, MiddlewareConsumer, RequestMethod } from '@nestjs/common';
 import { BaseModule } from '@base/base.module';
+import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { 
   HomeController,
@@ -15,8 +16,14 @@ import {
   AuthService, AdminUserService,
 } from './services';
 import { AuthMiddleware } from './middlewares';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { AdminUser } from './entities';
+
+import { 
+  AdminUser,
+} from './entities';
+
+import {
+  isUniqueValidator,
+} from './validators';
 
 const PUBLIC_CONTROLLERS = [
   HomeController,
@@ -27,9 +34,11 @@ const PRIVATE_CONTROLLERS = [
   AuthController,
 ]
 const PROVIDERS = [
-  // services
+  // Services
   AuthService,
   AdminUserService,
+  // validators
+  isUniqueValidator,
 ];
 
 const ENTITIES = [

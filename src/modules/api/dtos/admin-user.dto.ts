@@ -1,8 +1,10 @@
 import {
-  IsEmail, MinLength, MaxLength, IsNotEmpty, IsOptional, IsEnum
+  IsEmail, MinLength, MaxLength, IsNotEmpty, IsOptional, IsEnum, ValidatorConstraint, Validate
 } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 import { AdminUserRoleEnum, UserStatusEnum } from '@api/enums';
+import { IsUnique } from "@api/validators/user.validators";
+
 
 export class AdminUserDTO {
   @ApiProperty()
@@ -31,6 +33,10 @@ export class CreateAdminUserDTO {
   @ApiProperty()
   @IsEmail({}, { message: 'invalid' })
   @MaxLength(320, { message: '320'})
+  @IsUnique(
+    { table: "admin_user", column: "email" },
+    { message: "exist" }
+  )
   email: string;
 
   @ApiProperty()

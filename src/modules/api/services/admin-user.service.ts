@@ -16,7 +16,11 @@ export class AdminUserService {
 
   async findAll(): Promise<any> {
     return (await this.adminUserRepository.find()).map(data => classToPlain(data));
-  }  
+  }
+
+  async findOneByEmail(email: string) {
+    return this.adminUserRepository.findOne({ email: email });
+  }
 
   async create(payload: CreateAdminUserDTO) {
     let adminUser = new AdminUser({

@@ -4,6 +4,7 @@ import { AdminUser } from '@api/entities';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateAdminUserDTO } from '@api/dtos';
 import { UserStatusEnum } from '../enums';
+import { deserialize, classToPlain } from 'class-transformer';
 
 @Injectable()
 export class AdminUserService {
@@ -13,18 +14,15 @@ export class AdminUserService {
     private readonly adminUserRepository: Repository<AdminUser>,
   ) {}
 
-  async findAll(): Promise<AdminUser[]> {
-    return this.adminUserRepository.find();
+  async findAll(): Promise<any> {
+    return (await this.adminUserRepository.find()).map(data => classToPlain(data));
   }  
 
   async create(payload: CreateAdminUserDTO) {
-    let adminUser = new AdminUser();
-    adminUser.email = payload.email.toLowerCase();
-    adminUser.firstName = payload.firstName.toLowerCase();
-    adminUser.lastName = payload.lastName.toLowerCase();
-    adminUser.password = payload.password;
-    adminUser.role = payload.role;
-    adminUser.status = UserStatusEnum.ACTIVE;
+    let adminUser = new AdminUser({
+      ...payload,
+      status: UserStatusEnum.ACTIVE,
+    });    
     return this.adminUserRepository.save(adminUser);
   }
 }

@@ -1,16 +1,18 @@
 import { Controller, Get, Post, Patch, Delete, Body, Param, Put, UseGuards } from '@nestjs/common';
-import { ApiTags, ApiBearerAuth } from '@nestjs/swagger';
+import { ApiTags, ApiBearerAuth, ApiResponse } from '@nestjs/swagger';
 import { ConfigService } from '@nestjs/config';
 
 import {
   CreateUserDTO,
   UpdateUserDTO,
   CreateAdminUserDTO,
+  AdminUserDTO,
 } from '@api/dtos';
 
 import { 
   AdminUserService,
 } from '@api/services';
+
 
 
 @ApiBearerAuth()
@@ -23,6 +25,11 @@ export class UsersController {
   ){}
 
   @Get()
+  @ApiResponse({
+    status: 200,
+    isArray: true,
+    type: AdminUserDTO,
+  })  
   index() {
     // refs : https://developer.atlassian.com/server/confluence/pagination-in-the-rest-api/
     // https://dzone.com/articles/creating-a-rest-api-manual-pagination-sorting-and

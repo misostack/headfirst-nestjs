@@ -3,6 +3,7 @@ import {
 } from './user.dto';
 
 import {
+  AdminUserDTO,
   CreateAdminUserDTO,
 } from './admin-user.dto';
 
@@ -19,5 +20,6 @@ export {
   UpdateUserDTO,
   AuthValidateDTO,
   CreateExampleDTO,
+  AdminUserDTO,
   CreateAdminUserDTO,
 }

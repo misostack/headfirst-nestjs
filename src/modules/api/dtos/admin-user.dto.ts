@@ -2,8 +2,30 @@ import {
   IsEmail, MinLength, MaxLength, IsNotEmpty, IsOptional, IsEnum
 } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
-import { AdminUserRoleEnum } from '@api/enums';
-import { AdminUser } from '@api/entities';
+import { AdminUserRoleEnum, UserStatusEnum } from '@api/enums';
+
+export class AdminUserDTO {
+  @ApiProperty()
+  email: string;
+
+  @ApiProperty()
+  firstName: string;
+
+  @ApiProperty()
+  lastName: string;
+
+  @ApiProperty({ enum: AdminUserRoleEnum})
+  role: AdminUserRoleEnum;
+
+  @ApiProperty({ enum: UserStatusEnum})
+  status: UserStatusEnum;  
+
+  @ApiProperty()
+  createdAt: number;
+  
+  @ApiProperty()
+  updatedAt: number;  
+}
 
 export class CreateAdminUserDTO {
   @ApiProperty()

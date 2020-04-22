@@ -2,10 +2,12 @@ import { Entity, Column, PrimaryGeneratedColumn, BaseEntity, BeforeInsert, Befor
 import { BaseModel } from './base-model.entity';
 import { UserStatusEnum } from '@api/enums';
 import { EncryptHelper } from '@base/helpers';
+import { Exclude } from 'class-transformer';  
 
 @Index("IDX_EMAIL", { synchronize: false })
 @Index("IDX_FIRSTNAME_LASTNAME", { synchronize: false })
 export abstract class BaseUser extends BaseModel{
+
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -16,6 +18,7 @@ export abstract class BaseUser extends BaseModel{
   })
   email: string;
 
+  @Exclude()
   @Column({
     type: "varchar",
     length: 60,

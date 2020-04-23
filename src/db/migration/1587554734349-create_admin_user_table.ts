@@ -64,9 +64,8 @@ export class CreateAdminUserTable1587554734349 implements MigrationInterface {
                 },
                 {
                     name: "roles",
-                    type: "admin_user_role_enum",
-                    isArray: true,
-                    default: "'{}'",
+                    type: "text",
+                    isArray: true,                    
                 },
                 {
                     name: "status",

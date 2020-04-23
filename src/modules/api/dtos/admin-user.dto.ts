@@ -16,8 +16,8 @@ export class AdminUserDTO {
   @ApiProperty()
   lastName: string;
 
-  @ApiProperty({ enum: AdminUserRoleEnum})
-  role: AdminUserRoleEnum;
+  @ApiProperty({ enum: AdminUserRoleEnum, isArray: true})
+  roles: Array<AdminUserRoleEnum>;
 
   @ApiProperty({ enum: UserStatusEnum})
   status: UserStatusEnum;  
@@ -54,10 +54,9 @@ export class CreateAdminUserDTO {
   @IsNotEmpty({message: 'required'})  
   lastName: string;
 
-  @ApiProperty({ enum: AdminUserRoleEnum})
-  @IsEnum(AdminUserRoleEnum)
+  @ApiProperty({ enum: AdminUserRoleEnum, isArray: true})
   @IsNotEmpty({message: 'required'})
-  role: AdminUserRoleEnum;
+  roles: Array<AdminUserRoleEnum>;
 }
 
 export class UpdateAdminUserDTO {

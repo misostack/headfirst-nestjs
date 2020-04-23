@@ -10,7 +10,12 @@ export class AdminUser extends BaseUser {
     Object.assign(this, partial);
   }
 
-  @Column("enum", { enum: AdminUserRoleEnum })
-  role: AdminUserRoleEnum;
+  @Column({
+    type: "enum",
+    enum: AdminUserRoleEnum,
+    array: true,
+    default: []
+  })
+  roles: Array<AdminUserRoleEnum>;
   
 }

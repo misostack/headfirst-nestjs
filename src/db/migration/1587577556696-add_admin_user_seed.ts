@@ -16,7 +16,7 @@ export class AddAdminUserSeed1587577556696 implements MigrationInterface {
                 email:"contact@sonnm.com", 
                 password: password_hashed,
                 firstName: "Son", lastName: "Nguyen",
-                role: AdminUserRoleEnum.SADMIN,
+                roles: [AdminUserRoleEnum.SADMIN],
                 status: UserStatusEnum.ACTIVE,
                 createdAt: DateTimeHelper.now(),
                 updatedAt: DateTimeHelper.now(),

@@ -1,5 +1,5 @@
 import {
-  IsEmail, MinLength, MaxLength, IsNotEmpty, IsOptional, IsEnum, ValidatorConstraint, Validate
+  IsEmail, MinLength, MaxLength, IsNotEmpty, IsOptional, IsEnum, ValidatorConstraint, Validate, IsIn
 } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 import { AdminUserRoleEnum, UserStatusEnum } from '@api/enums';
@@ -56,6 +56,7 @@ export class CreateAdminUserDTO {
 
   @ApiProperty({ enum: AdminUserRoleEnum, isArray: true})
   @IsNotEmpty({message: 'required'})
+  @IsIn([AdminUserRoleEnum.ADMIN, AdminUserRoleEnum.SADMIN, AdminUserRoleEnum.SUPERVISOR])
   roles: Array<AdminUserRoleEnum>;
 }
 
